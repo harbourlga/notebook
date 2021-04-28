@@ -1,7 +1,0 @@
-####20200629周一本周计划####
-1⃣️go-stress-testing 使用go-stress-testing压测聊天室的服务
-2⃣️熟练beego的controller设计:
-   参数配置：beego 默认会解析当前应用下的 conf/app.conf 文件👌；
-   logs模块，想办法将log模块只在main里启动一次
-2⃣️掌握使用了解go的协程
-4⃣️一周听写100个单词
