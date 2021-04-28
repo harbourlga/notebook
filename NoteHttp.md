@@ -26,14 +26,14 @@ Api Server：
 
 
 ###########20200810
-docker run --name grpc-test -d -it -v ~/grpc-master:/grpc-master docker.io/grpc/python   挂载grpc
+docker run --name grpc-test -d -it -v root/grpc-master:/grpc-master docker.io/grpc/python   挂载grpc
 
 grpc原理: 使用grpc要先写好pb代码,然后用protoc生成代码，生成的代码统称为stub
 
 文章的框架模版: 简介（架构介绍）、特点（特别的地方）、功能（能做什么）、应用（在实际场景中用到了什么地方）、原理（架构或工具底层是怎么实现的）、其他自由发挥如通信方式网络等
 
 python起service
-docker run --name grpc-t -d -it -v ~/grpc-master:/grpc-master docker.io/python
+docker run --name grpc-t -d -it -v root/grpc-master:/grpc-master docker.io/python
 
 
 ###########20200813
@@ -183,8 +183,10 @@ http协议进阶：
                      响应报文：Transfer-Encoding: chunked来表示报文里的body部分不是一次性发过来的，而是分成了许多的块逐个发送。这个参数跟Content-Length是互斥的
                      流式传输：例如由数据库动态生成的表单页面，这种情况下body数据的长度是未知的，无法在头字段"Content-Length"里给出确切的长度，所以必须用分块传输
                      分块传输的编码规则：包含两个部分长度头和数据块
-                                       <img src="https://static001.geekbang.org/resource/image/25/10/25e7b09cf8cb4eaebba42b4598192410.png"/>
-
+                                       
+<div align=center>
+<img src="https://static001.geekbang.org/resource/image/25/10/25e7b09cf8cb4eaebba42b4598192410.png"/>
+</div>
                3.范围请求
 
 
