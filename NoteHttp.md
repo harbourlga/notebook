@@ -174,7 +174,8 @@
          ​    通过区分语言类型来使浏览器显示不同的语言。
 
 # http协议进阶：
- 1⃣️http是如何传输大文件的？
+
+1⃣️http是如何传输大文件的？
 
    1. 数据压缩的时候通常都会通过““Accept-Encoding””字段告知自己支持那种压缩格式，例如gzip、deflate、br等。服务器会选择一
 
@@ -195,5 +196,11 @@
 <div align=center>
 <img src="https://static001.geekbang.org/resource/image/25/10/25e7b09cf8cb4eaebba42b4598192410.png"/>
 </div>
+3.范围请求
 
+​     ·概念：允许客户端在请求头里使用专用字段来表示只获取文件的一部分。
+
+4.多段数据
+
+![fffa3a65e367c496428f3c0c4dac8a37](/Users/biqiouyang/Downloads/fffa3a65e367c496428f3c0c4dac8a37.png)
 
