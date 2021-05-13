@@ -1,0 +1,84 @@
+curl -X POST "http://111.229.31.222:8888/api/getApiList" -H "accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9hdXRob3JpdHlfaWQiOiI4ODgiLCJhZG1pbl9pZCI6ImhhaGFoYSIsImFkbWluX25pY2tuYW1lIjoic2RkcyIsImFkbWluX3V1aWQiOiJoYXJib3VyIiwiZXhwIjoxNjE4NTY4MDI4LCJpYXQiOjE2MTg1NjQ0Mjh9.rGnM0IsXzJ7yCfuhfgwNYQl0enM7nzyB9xvvYapOdMY" -d '{"page":1,"pageSize":10}'
+
+
+curl -XPOST http://localhost:9200/newspaper/_mapping -H 'Content-Type:application/json' -d'
+{
+        "properties": {
+            "content": {
+                "type": "text",
+                "analyzer": "ik_max_word",
+                "search_analyzer": "ik_smart"
+            }
+        }
+
+}'
+
+
+
+curl -XPOST http://localhost:9200/newspaper/_create/1 -H 'Content-Type:application/json' -d'
+{"content":"美国留给伊拉克的是个烂摊子吗"}
+'
+curl -XPOST http://localhost:9200/newspaper/_create/2 -H 'Content-Type:application/json' -d'
+{"content":"公安部：各地校车将享最高路权"}
+'
+curl -XPOST http://localhost:9200/newspaper/_create/3 -H 'Content-Type:application/json' -d'
+{"content":"中韩渔警冲突调查：韩警平均每天扣1艘中国渔船"}
+'
+curl -XPOST http://localhost:9200/newspaper/_create/4 -H 'Content-Type:application/json' -d'
+{"content":"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"}
+'
+4.query with highlighting
+
+curl -XPOST http://81.68.145.26:9200/newspaper/_search  -H 'Content-Type:application/json' -d'
+{
+    "query" : { "match" : { "content" : "中国" }},
+    "highlight" : {
+        "pre_tags" : ["<tag1>", "<tag2>"],
+        "post_tags" : ["</tag1>", "</tag2>"],
+        "fields" : {
+            "content" : {}
+        }
+    }
+}
+'
+
+curl -XPOST http://localhost:9200/test/_mapping -H 'Content-Type:application/json' -d'
+{
+        "properties": {
+            "Columns0": {
+                "type": "keyword"
+            },
+            "title": {
+                "type": "text",
+                "analyzer": "ik_max_word",
+                "search_analyzer": "ik_smart"
+            },
+            "content": {
+                "type": "text",
+                "analyzer": "ik_max_word",
+                "search_analyzer": "ik_smart"
+            },
+            "pub_ts": {
+                "type": "date"
+            }
+        }
+}'
+
+
+
+curl -XPOST http://localhost:9200/test/_create/1 -H 'Content-Type:application/json' -d'
+{"Columns0": "0", "title": "引入前美团地推大将，每日优鲜便利购如何上演“攻守道”?", "content": "文易北辰在新零售业态当中，无人货架启动和运营成本貌似最低，主要面向2亿白领人群的上班时间，是新的流量价值洼地。因此无人货架成为新零售大潮中最先火起来的业态，", "pub_ts": "2018-01-06 22:31:00"}'
+
+
+curl -XPOST http://81.68.145.26:9200/newspaper/_search  -H 'Content-Type:application/json' -d'
+{
+    "query" : { "match" : { "content" : "中国" }},
+    "highlight" : {
+        "pre_tags" : ["<tag1>", "<tag2>"],
+        "post_tags" : ["</tag1>", "</tag2>"],
+        "fields" : {
+            "content" : {}
+        }
+    }
+}
+'
