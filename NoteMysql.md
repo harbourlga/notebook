@@ -229,7 +229,7 @@
 
 ​        a.意向共享锁(is):通知数据库接下来需要施加什么锁并对表加锁。如果需要对记录A加共享锁，那么此时innodb会先找到这张表，对该表加意向共享锁之后，再对记录A添加共享锁。
 
-​        b.意向排他锁(ix):通知数据库接下来需要施加什么锁并对表加锁。如果需要对记录A加排他锁，那么此时innodb会先找到这张表，对该表加意向排他锁之后，再对记录A添加共享锁。
+​        b.意向排他锁(ix):通知数据库接下来需要施加什么锁并对表加锁。如果需要对记录A加排他锁，那么此时innodb会先找到这张表，对该表加意向排他锁之后，再对记录A添加排他锁。
 
 ​        InnoDB加锁：a.对于update、delete、insert语句,innodb会自动给涉及的数据集加上排他锁。
 
@@ -902,7 +902,7 @@ c.主键：PRIMARY KEY索引，主键是一种唯一性索引，但它必须指�
 # MYSQL一条更新语句经历了什么？
  1⃣️与查询流程一样，update的时候也会经历客户端、连接器、分析器、优化器、执行期操作存储引擎。不同的是update还涉及到日志模块(redolog重做日志 和 binlog归档日志)
 
-![image-20210506111302884](/Users/biqiouyang/Library/Application Support/typora-user-images/image-20210506111302884.png)
+![image-20210506111302884](images/image-20210506111302884.png)
 
  2⃣️什么是redolog
 
@@ -1760,6 +1760,8 @@ fer中的其他事务也持久化到磁盘。
 
 ​        d. 如果网络接口函数返回了EAGAIN或WSAEWOULDBLOCK，就表示本地网络栈socket send buffer满了，进入等待。直到网络栈重新可写再继续发送。
 
+images/a027c300d7dde8cea4fad8f34b670ebd.jpg)
+
 <div align=center>
 <img src="https://static001.geekbang.org/resource/image/a0/bd/a027c300d7dde8cea4fad8f34b670ebd.jpg"/>
 </div>
@@ -1780,7 +1782,7 @@ fer中的其他事务也持久化到磁盘。
 
 1.join语句到底是如何执行的
 
-![image-20210506114801735](/Users/biqiouyang/Library/Application Support/typora-user-images/image-20210506114801735.png)
+![image-20210517111857223](images/image-20210517111857223.png)
 
  
 
@@ -1892,7 +1894,7 @@ fer中的其他事务也持久化到磁盘。
 
 ​    1.**分库分表系统的跨库查询**
 
-<img src="https://static001.geekbang.org/resource/image/dd/81/ddb9c43526dfd9b9a3e6f8c153478181.jpg"/>
+![image-20210517111734150](./images/image-20210517111734150.png)
 
 ​      (1).比较常见的一种情况是跨库跨表是以“分区key”来分发查询。一般情况下，会在中间层proxy解析sql语句，然后确定将这个语句路由到那个分表做查询。
 
@@ -1914,7 +1916,9 @@ fer中的其他事务也持久化到磁盘。
 
 ​           b.把所有分库拿到的数据，汇总到mysql实例的一个表中，然后在这个汇总表做逻辑操作。
 
-​     <img src="https://static001.geekbang.org/resource/image/f5/0d/f5ebe0f5af37deeb4d0b63d6fb11fc0d.jpg"/>
+​     
+
+![image-20210517111757370](./images/image-20210517111757370.png)
 
 
 
@@ -1958,13 +1962,13 @@ fer中的其他事务也持久化到磁盘。
 
 ​     union的语义是取两个字查询结果的并集。并集的意思是这两个集合加起来，重复的行只保留一行。
 
-![image-20210510121606058](/Users/biqiouyang/Desktop/临时文件夹/images/image-20210510121606058.png)
+![image-20210510121606058](./images/image-20210510121606058.png)
 
   3.group by执行流程
 
 ​     group  by是指按指定字段进行分组统计。
 
-​    ![image-20210510121642795](/Users/biqiouyang/Desktop/临时文件夹/images/image-20210510121642795.png)
+​    ![image-20210510121642795](./images/image-20210510121642795.png)
 
 **优化**：
 
@@ -2020,17 +2024,17 @@ fer中的其他事务也持久化到磁盘。
 
 1⃣️Memory引擎与Innodb引擎的对比
 
-   ![image-20210511104504925](/Users/biqiouyang/Desktop/临时文件夹/images/image-20210511104504925.png)
+   ![image-20210511104504925](./images/image-20210511104504925.png)
 
    1.组织方式
 
 ​     Innodb引擎:数据放在主键索引树上，主键索引是一颗b+树，叶子节点的存放是有顺序的。
 
-​       ![image-20210511104541103](/Users/biqiouyang/Desktop/临时文件夹/images/image-20210511104541103.png)
+​       ![image-20210511104541103](./images/image-20210511104541103.png)
 
 ​     Memory引擎：数据和索引是分开的
 
-   ![image-20210511104558633](/Users/biqiouyang/Desktop/临时文件夹/images/image-20210511104558633.png)
+   ![image-20210511104558633](./images/image-20210511104558633.png)
 
 
 
@@ -2056,7 +2060,7 @@ fer中的其他事务也持久化到磁盘。
 
 ​    通过以上语句在id列上创建一个B-Tree索引
 
-​    ![image-20210511110720792](/Users/biqiouyang/Desktop/临时文件夹/images/image-20210511110720792.png)
+​    ![image-20210511110720792](./images/image-20210511110720792.png)
 
    
 
@@ -2144,7 +2148,7 @@ fer中的其他事务也持久化到磁盘。
 
 ​    原因：当日志级别为statement的时候，主库在执行insert...select的时候没有锁全表，这时候如果有另外一个会话在select的表里面插入了一行数据，那么会导致在备库里insert的表出现这行数据。
 
-​    ![image-20210513105103354](/Users/biqiouyang/Desktop/临时文件夹/images/image-20210513105103354.png)
+​    ![image-20210513105103354](./images/image-20210513105103354.png)
 
 2⃣️insert循环写入
 
@@ -2174,7 +2178,75 @@ fer中的其他事务也持久化到磁盘。
 
    语义是插入一行数据，如果碰到唯一键约束，就执行后面的更新语句。此时会对该唯一索引加next-key lock(写锁)
 
-​    
+
+
+# MYSQL的分区表
+
+1⃣️分区表是什么
+
+​    从概念上说，分区表就是通过日期字段，将表分为多个。对于引擎层，分了多少个区间就有多少个物理表。对于server层来说，无论怎么分区都是一个物理表
+
+  ```mysql
+  CREATE TABEL `t` (
+    `ftime` datetime NOT NULL,
+    `c` int(11) DEFAULT NULL,
+    KEY (`ftime`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+  PARTITION BY RANGE (YEAR(ftime))
+  (PARTITION p_2017 VALUES LESS THAN (2017) ENGINE=InnoDB,
+  PARTITION p_2018 VALUES LESS THAN (2018) ENGINE=InnoDB,
+  PARTITION p_2019 VALUES LESS THAN (2019) ENGINE=InnoDB,
+  PARTITION p_2020 VALUES LESS THAN (2020) ENGINE=InnoDB,);
+  insert into t values('2017-4-1', 1), ('2018-4-1', 1);
+  ```
+
+以上会在引擎层创建四个表，但在server层只有一个表。
+
+2⃣️分区表引擎层的行为
+
+1.Innodb
+
+![image-20210517110459267](./images/image-20210517110459267.png)
+
+ 2.myisam
+
+   对于myisam引擎来说，分区表也是4个。myisam没有行锁，只有表锁，在锁住整张表的时候只会锁住指定的分区，其他分区不受影响。
+
+3.手动分表和分区的区别
+
+  对于手动分表，如果按照年份划分，分别创建几个普通表，在逻辑与性能上与分区表没有差别。
+
+  分区表实在server层是决定要使用那个分区；手动分表在应用层代码决定要使用那个分表。因此，从引擎层上来看是没有区别的。
+
+  这两个方案的区别点在与server层，在server层
+
+3⃣️分区策略
+
+1.当一次访问分区表
+
+   使用myisam引擎，每当第一次访问分区表时候，mysql都需要把所有分区都访问一遍。因此当一个分区表的分区都很多，那么会导致打开的表文件超过上限而报错。
+
+  对于innodb并不会出现这个问题。myisam使用的是server层提供的通用分区策略，做的并不好。innodb在自己内部管理打开分区表的行为。
+
+4⃣️分区表的server层行为
+
+ 1.从server层看，一个分区表就只是一个表
+
+ 2.严重影响ddl
+
+   ddl操作位于server层。server层会认为所有分区表都是一张表，所以所有分区都共用一个MDL锁，当其中一个分区持有MDL锁之后，在其他分区进行ddl操作会被堵住。
+
+5⃣️总结
+
+ 1.mysql在第一次打开分区表的时候，需要访问到所有的分区
+
+ 2.在server层，认为这是同一张表，因此所有分区共用一个MDL锁
+
+ 3.在引擎层，认为这是不同的表，因此MDL锁之后的执行过程，会根据分区表规则，只访问必要的分区。
+
+ 4.应用场景
+
+   分区表一个最有用的功能是可以很方便的清理历史数据。如果一项业务跑的时间足够长，往往就会有根据时间删除历史数据的需求。这时候，按照时间分区的分区表，就可以直接通过alter table t drop partition... 这个语法删掉分区历史数据。这种用啊怼系统影响小。
 
 
 
